@@ -5,6 +5,9 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <meta http-equiv="X-UA-Compatible" content="ie=edge">
 <meta name="Description" content="Enter your description here"/>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.1/umd/popper.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.6.0/js/bootstrap.min.js"></script>
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.6.0/css/bootstrap.min.css">
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
 <link rel="stylesheet" href="./assets/style.css">
@@ -15,22 +18,29 @@
         <h2>Weather Dashboard</h2>
     </header>
 
-    <div class="container row my-2 w-100 ml-1">
-        <div class="col-3">
+    <div class="container-fluid row my-2 ml-1">
+        <div class="col-sm-12 col-lg-3">
             <form>
-                <label for="city">Search for a city:</label>
-                <input type="text" id="city-name" name="city-name" placeholder="Enter City">
-                <button type="submit">Search</button>
+                <label for="city"><h4>Search for a City:</h4></label>
+                <input type="text" id="city-name" name="city-name" placeholder="Enter City" class="input-group-text bg-white w-100">
+                <button type="submit" class="btn btn-primary w-100 mt-3">Search</button>
             </form>
             <hr>
         </div>
-        <div class="col-9">
-            <div>City Name and What Not</div>
-            <div>5 day forecast</div>
+        <div class="col-sm-12 col-lg-9">
+            <div>
+                <h3 id="city-display"></h3>
+                <p>Temp: </p>
+                <p>Wind: </p>
+                <p>Humidity: </p>
+                <p>UV Index: </p>
+            </div>
+            <div>5-Day Forecast:</div>
+            <div class="container" id="dailyForecasts">
+
+            </div>
         </div>
     </div>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.5.1/jquery.slim.min.js"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.1/umd/popper.min.js"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.6.0/js/bootstrap.min.js"></script>
+
 </body>
 </html>
