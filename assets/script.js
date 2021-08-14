@@ -16,6 +16,30 @@ function createButton(selectedCity) {
     // this fuction will be used to create a button which can be pressed and searched again.
 }
 
+function displayForecast(data){
+
+}
+
+function secondApiCall(latitude, longitude) {
+    var secondCall = "https://api.openweathermap.org/data/2.5/onecall?lat=" + latitude + "&lon=" + longitude + "&exclude=current,minutely,hourly,alerts&appid=" + APIKEY;
+    console.log(secondApiCall);
+
+    fetch(secondCall)
+    .then(function(response){
+        console.log(response);
+        if (response.ok) {
+            return response.json();
+        }
+    })
+    .then(function(data){
+        console.log(data);
+        displayForecast(data);
+    })
+    .catch(function(err){
+        console.log(err);
+    })
+}
+
 function displayWeather(firstApiCallData) {
     cityDisplayEl.text(cityInputEl.val() + " " + CURRENTDAY);
 
@@ -32,7 +56,13 @@ function displayWeather(firstApiCallData) {
     console.log(tempOutput);
     console.log(windOutput);
     console.log(humidityOutput);
-    
+
+    var latitude = firstApiCallData.coord.lat;
+    var longitude = firstApiCallData.coord.lon;
+    console.log(latitude);
+    console.log(longitude);
+
+    secondApiCall(latitude,longitude);
 }
 
 function getQuery(event) {
