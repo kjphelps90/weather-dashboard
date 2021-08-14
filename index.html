@@ -5,9 +5,6 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <meta http-equiv="X-UA-Compatible" content="ie=edge">
 <meta name="Description" content="Enter your description here"/>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.1/umd/popper.min.js"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.6.0/js/bootstrap.min.js"></script>
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.6.0/css/bootstrap.min.css">
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
 <link rel="stylesheet" href="./assets/style.css">
@@ -15,32 +12,42 @@
 </head>
 <body>
     <header class="bg-primary text-light text-center py-3">
-        <h2>Weather Dashboard</h2>
+        <h2><strong>Weather Dashboard</strong></h2>
     </header>
 
     <div class="container-fluid row my-2 ml-1">
         <div class="col-sm-12 col-lg-3">
-            <form>
+            <form id="city-name">
                 <label for="city"><h4>Search for a City:</h4></label>
-                <input type="text" id="city-name" name="city-name" placeholder="Enter City" class="input-group-text bg-white w-100">
+                <input id="city-input" type="text" name="city-name" placeholder="Enter City" class="input-group-text bg-white w-100">            
                 <button type="submit" class="btn btn-primary w-100 mt-3">Search</button>
             </form>
             <hr>
+            <div id="past-searches"></div>
         </div>
         <div class="col-sm-12 col-lg-9">
-            <div>
-                <h3 id="city-display"></h3>
+            <div class="pl-2">
+                <h3 id="city-display" class="mt-2">City Name (12:00pm)</h3>
                 <p>Temp: </p>
                 <p>Wind: </p>
                 <p>Humidity: </p>
                 <p>UV Index: </p>
             </div>
-            <div>5-Day Forecast:</div>
-            <div class="container" id="dailyForecasts">
-
+            <h4 class="mt-2">5-Day Forecast: </h4>
+            <div class="container-fluid row justify-content-center" id="weather-blocks">
+                <div class="col-2 mx-2">Test</div>
+                <div class="col-2 mx-2">Test</div>
+                <div class="col-2 mx-2">Test</div>
+                <div class="col-2 mx-2">Test</div>
+                <div class="col-2 mx-2">Test</div>
+                <!-- Either going to put place holders here, or going to just append Children when the search button is hit. -->
             </div>
+            
         </div>
     </div>
-
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.1/umd/popper.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.6.0/js/bootstrap.min.js"></script>
+    <script src="./assets/script.js"></script>
 </body>
 </html>
