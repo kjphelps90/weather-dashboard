@@ -16,12 +16,30 @@ function createButton(selectedCity) {
     // this fuction will be used to create a button which can be pressed and searched again.
 }
 
-function displayForecast(data){
+function displayForecast(secondApiCallData){
+    var uvData = secondApiCallData.current.uvi;
+    console.log(uvData);
+    uvOutput.text(uvData);
 
+    if (uvData <= 3) {
+        uvOutput.addClass("uv-low");
+    }
+    else if (uvData > 3 && uvData <= 5){
+        uvOutput.addClass("uv-moderate");
+    }
+    else if (uvData > 5 && uvData <= 7){
+        uvOutput.addClass("uv-high");
+    }
+    else if (uvData > 7 && uvData <= 10){
+        uvOutput.addClass("uv-veryhigh");
+    }
+    else {
+        uvOutput.addClass("uv-extreme");
+    }
 }
 
 function secondApiCall(latitude, longitude) {
-    var secondCall = "https://api.openweathermap.org/data/2.5/onecall?lat=" + latitude + "&lon=" + longitude + "&exclude=current,minutely,hourly,alerts&appid=" + APIKEY;
+    var secondCall = "https://api.openweathermap.org/data/2.5/onecall?lat=" + latitude + "&lon=" + longitude + "&exclude=minutely,hourly,alerts&units=imperial&appid=" + APIKEY;
     console.log(secondApiCall);
 
     fetch(secondCall)
@@ -85,11 +103,8 @@ function getQuery(event) {
     .then(function(response){
         if (response.ok) {
            console.log(response);
+           console.log(response.ok);
            return response.json();
-        }
-        else {
-            cityDisplayEl.text("City not found, try again");
-            return;
         }
     })
     .then(function(data){
