@@ -2,13 +2,37 @@ $(document).ready(function () {
 
 // grab ids that will be updated when the fucntion is run.
     // -don't need to grab the button because it's apart of the form
-
-
+var CURRENTDAY = moment().format("(MM/DD/YYYY)");
+var APIKEY = "75f8ef327e7ac7bfe860832fbe2eb2d0";
 var cityFormEl = $("#city-name");
 var cityInputEl = $("#city-input");
+var cityDisplayEl = $("#city-display");
+var tempOutput = $("#temp-output");
+var windOutput = $("#wind-output");
+var humidityOutput = $("#humidity-output");
+var uvOutput = $("#uv-output");
 
 function createButton(selectedCity) {
     // this fuction will be used to create a button which can be pressed and searched again.
+}
+
+function displayWeather(firstApiCallData) {
+    cityDisplayEl.text(cityInputEl.val() + " " + CURRENTDAY);
+
+    var temp = firstApiCallData.main.temp;
+    var wind = firstApiCallData.wind.speed;
+    var humidity = firstApiCallData.main.humidity;
+    console.log(temp);
+    console.log(wind);
+    console.log(humidity);
+
+    tempOutput.text("Temp: " + temp + "℉");
+    windOutput.text("Wind: " + wind + " MPH");
+    humidityOutput.text("Humidity: " + humidity + " %");
+    console.log(tempOutput);
+    console.log(windOutput);
+    console.log(humidityOutput);
+    
 }
 
 function getQuery(event) {
@@ -17,9 +41,34 @@ function getQuery(event) {
     var selectedCity = cityInputEl.val().trim();
     console.log(selectedCity);
 
-    function createButton(selectedCity);
+    if (!selectedCity) {
+        alert("Please enter the name of a city");
+        return;
+    }
 
+    createButton(selectedCity);
 
+    var firstApiQuery = "https://api.openweathermap.org/data/2.5/weather?q=" + selectedCity + "&appid=" + APIKEY + "&units=imperial";
+    console.log(firstApiQuery);
+
+    fetch(firstApiQuery)
+    .then(function(response){
+        if (response.ok) {
+           console.log(response);
+           return response.json();
+        }
+        else {
+            cityDisplayEl.text("City not found, try again");
+            return;
+        }
+    })
+    .then(function(data){
+        console.log(data);
+        displayWeather(data);
+    })
+    .catch(function(err){
+        console.log(err);
+    })
 }
 
 cityFormEl.on("submit", getQuery);
