@@ -7,11 +7,28 @@
 <meta name="Description" content="Enter your description here"/>
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.6.0/css/bootstrap.min.css">
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
-<link rel="stylesheet" href="assets/css/style.css">
+<link rel="stylesheet" href="./assets/style.css">
 <title>Weather Dashboard</title>
 </head>
 <body>
+    <header class="bg-primary text-light text-center py-3">
+        <h2>Weather Dashboard</h2>
+    </header>
 
+    <div class="container row my-2 w-100 ml-1">
+        <div class="col-3">
+            <form>
+                <label for="city">Search for a city:</label>
+                <input type="text" id="city-name" name="city-name" placeholder="Enter City">
+                <button type="submit">Search</button>
+            </form>
+            <hr>
+        </div>
+        <div class="col-9">
+            <div>City Name and What Not</div>
+            <div>5 day forecast</div>
+        </div>
+    </div>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.5.1/jquery.slim.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.1/umd/popper.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.6.0/js/bootstrap.min.js"></script>
