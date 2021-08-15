@@ -12,7 +12,31 @@ var windOutput = $("#wind-output");
 var humidityOutput = $("#humidity-output");
 var uvOutput = $("#uv-output");
 var pastSearches = $("#past-searches");
-var history = []; // used to hold the old searches for local storage.
+
+// setting the historical searches. If there is something in local storage then the variable will be set to it. If not, then it will be set to blank.
+
+var historyCheck = localStorage.getItem("searchHistory");
+if (!historyCheck){
+var history = [];
+}
+else {
+    var history = [];
+    history = JSON.parse(historyCheck);
+}
+
+if (history.length >= 1) {
+    
+    for (let i=0; i < history.length; i++) {
+        var initButtonList = $("<button>");
+        initButtonList.addClass("init-button btn btn-secondary w-100 my-2");
+        initButtonList.text(history[i]);
+        pastSearches.append(initButtonList);
+    }
+}
+
+var initButton = $(".init-button");
+
+
 
 // grabbing the forecast days
 
@@ -24,15 +48,20 @@ var day5 = $("#day-5");
 
 function createButton(selectedCity) {
     // this fuction will be used to create a button which can be pressed and searched again.
+    var searchHistory = JSON.parse(localStorage.getItem("searchHistory"));
+    console.log(searchHistory);
+    console.log($.inArray(selectedCity,searchHistory));
     var cityButton = $("<button>");
-    console.log(cityButton);
-    cityButton.text(selectedCity);
-    cityButton.addClass("btn btn-secondary w-100 my-2");
-    pastSearches.append(cityButton);
 
-    // going to create if statement to not allow duplicates and not allow more that 10 in the list. 
-    history.push(selectedCity);
-    console.log(history);
+    if ($.inArray(selectedCity,searchHistory) == -1) {
+        console.log(cityButton);
+        cityButton.text(selectedCity);
+        cityButton.addClass("btn btn-secondary w-100 my-2");
+        pastSearches.append(cityButton);
+        history.push(selectedCity);
+        console.log(history);
+        localStorage.setItem("searchHistory",JSON.stringify(history));
+    }
 
     cityButton.click(function() {
         var newCity = cityButton.text();
@@ -47,6 +76,7 @@ function displayForecast(secondApiCallData){
     console.log(uvData);
     console.log(typeof uvData);
     uvOutput.text(uvData);
+    uvOutput.removeClass();
 
     if (uvData == 0 || uvData <= 3) {
         uvOutput.addClass("uv-low");
@@ -162,10 +192,10 @@ function getQuery(selectedCity) {
 
     console.log(selectedCity);
 
-    // if (!selectedCity) {
-    //     alert("Please enter the name of a city");
-    //     return;
-    // }
+    if (!selectedCity) {
+        alert("Please enter the name of a city");
+        return;
+    }
 
     createButton(selectedCity);
 
@@ -195,25 +225,10 @@ cityFormEl.on("submit", function(){
     cityDisplayEl.text(cityInputEl.val() + " " + CURRENTDAY);
 });
 
-
-
-// function that creates a button when the city has been searched for
-    // if city is valid then create button and append below the     search box
-        // cities should not be duplicated (if possible).
-    // button should have an a tag that triggers the API. ($(this))
-    // Selecting the buttons below will not create another button below.
-
-
-// function that calls the weather api based on the city that is being searched.
-    // variables will have to be created based on the return data of the API(s) and then set.
-    // boxes will have to be created that get shown in the 5 day forecast with date, image (possibly), temp, wind, and humidity.
-
-
-
-
-
-
-
-
+initButton.on("click", function(){
+    var cityName = $(this).text();
+    getQuery(cityName);
+    cityDisplayEl.text(cityName + " " + CURRENTDAY);
+})
 
 })
