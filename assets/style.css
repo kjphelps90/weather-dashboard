@@ -2,10 +2,6 @@ body {
     width: 100%;
 }
 
-div {
-    border: 1px solid black;
-}
-
 .uv-low {
     background-color: green;
     color: white;
