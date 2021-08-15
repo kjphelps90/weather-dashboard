@@ -35,3 +35,14 @@ div {
     color: white;
     font-weight: bold;
 }
+
+.mx-2 {
+    background-color: navy;
+    color: white;
+}
+
+li {
+    list-style-type: none;
+    margin-left: 0;
+    padding-left: 0;
+}

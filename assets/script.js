@@ -12,6 +12,14 @@ var windOutput = $("#wind-output");
 var humidityOutput = $("#humidity-output");
 var uvOutput = $("#uv-output");
 
+// grabbing the forecast days
+
+var day1 = $("#day-1");
+var day2 = $("#day-2");
+var day3 = $("#day-3");
+var day4 = $("#day-4");
+var day5 = $("#day-5");
+
 function createButton(selectedCity) {
     // this fuction will be used to create a button which can be pressed and searched again.
 }
@@ -19,9 +27,10 @@ function createButton(selectedCity) {
 function displayForecast(secondApiCallData){
     var uvData = secondApiCallData.current.uvi;
     console.log(uvData);
+    console.log(typeof uvData);
     uvOutput.text(uvData);
 
-    if (uvData <= 3) {
+    if (uvData == 0 || uvData <= 3) {
         uvOutput.addClass("uv-low");
     }
     else if (uvData > 3 && uvData <= 5){
@@ -36,6 +45,53 @@ function displayForecast(secondApiCallData){
     else {
         uvOutput.addClass("uv-extreme");
     }
+
+    // Have to create the 5 day forecast.
+
+    for (let i=1; i<6; i++) {
+
+        var daySelect = eval("day" + i);
+        console.log(daySelect);
+        console.log(typeof daySelect);
+
+        var date = moment().add(i,"days").format("M/D/YYYY");
+        var futTemp = secondApiCallData.daily[i].temp.day;
+        // console.log(futTemp);
+        var futWind = secondApiCallData.daily[i].wind_speed;
+        var futHumid = secondApiCallData.daily[i].humidity;
+
+        
+        var futureDate = $("<li>");
+        futureDate.text(date);
+        // console.log(futureDate);
+        daySelect.append(futureDate);
+
+        var forecastTemp = $("<li>");
+        forecastTemp.text("Temp: " + futTemp + "℉");
+        // console.log(forecastTemp);
+        daySelect.append(forecastTemp);
+
+        var forecastWind = $("<li>");
+        forecastWind.text("Wind: " + futWind + " MPH");
+        daySelect.append(forecastWind);
+
+        var forecastHumid = $("<li>");
+        forecastHumid.text("Humidity: " + futHumid + "%");
+        daySelect.append(forecastHumid);
+
+
+
+
+        
+
+
+
+
+
+    }
+
+
+
 }
 
 function secondApiCall(latitude, longitude) {
