@@ -12,6 +12,7 @@ var windOutput = $("#wind-output");
 var humidityOutput = $("#humidity-output");
 var uvOutput = $("#uv-output");
 var pastSearches = $("#past-searches");
+var history = []; // used to hold the old searches for local storage.
 
 // grabbing the forecast days
 
@@ -23,12 +24,15 @@ var day5 = $("#day-5");
 
 function createButton(selectedCity) {
     // this fuction will be used to create a button which can be pressed and searched again.
-
     var cityButton = $("<button>");
     console.log(cityButton);
     cityButton.text(selectedCity);
     cityButton.addClass("btn btn-secondary w-100 my-2");
     pastSearches.append(cityButton);
+
+    // going to create if statement to not allow duplicates and not allow more that 10 in the list. 
+    history.push(selectedCity);
+    console.log(history);
 
     cityButton.click(function() {
         var newCity = cityButton.text();
