@@ -11,6 +11,7 @@ var tempOutput = $("#temp-output");
 var windOutput = $("#wind-output");
 var humidityOutput = $("#humidity-output");
 var uvOutput = $("#uv-output");
+var pastSearches = $("#past-searches");
 
 // grabbing the forecast days
 
@@ -22,6 +23,17 @@ var day5 = $("#day-5");
 
 function createButton(selectedCity) {
     // this fuction will be used to create a button which can be pressed and searched again.
+
+    var cityButton = $("<button>");
+    console.log(cityButton);
+    cityButton.text(selectedCity);
+    cityButton.addClass("btn btn-secondary w-100 my-2");
+    pastSearches.append(cityButton);
+
+    cityButton.click(function() {
+        alert("this is working.");
+    });
+
 }
 
 function displayForecast(secondApiCallData){
@@ -48,11 +60,13 @@ function displayForecast(secondApiCallData){
 
     // Have to create the 5 day forecast.
 
+
+
     for (let i=1; i<6; i++) {
 
         var daySelect = eval("day" + i);
-        console.log(daySelect);
-        console.log(typeof daySelect);
+        // console.log(daySelect);
+        // console.log(typeof daySelect);
 
         var date = moment().add(i,"days").format("M/D/YYYY");
         var futTemp = secondApiCallData.daily[i].temp.day;
@@ -79,15 +93,7 @@ function displayForecast(secondApiCallData){
         forecastHumid.text("Humidity: " + futHumid + "%");
         daySelect.append(forecastHumid);
 
-
-
-
-        
-
-
-
-
-
+        // can add images in there as well if time permits.  
     }
 
 
@@ -141,6 +147,13 @@ function displayWeather(firstApiCallData) {
 
 function getQuery(event) {
     event.preventDefault();
+
+    // clearing out the forecast data so it doesn't duplicate. If you select multiple cities in one sitting.
+    day1.text("");
+    day2.text("");
+    day3.text("");
+    day4.text("");
+    day5.text("");
 
     var selectedCity = cityInputEl.val().trim();
     console.log(selectedCity);
