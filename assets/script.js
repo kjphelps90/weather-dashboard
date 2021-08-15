@@ -31,7 +31,9 @@ function createButton(selectedCity) {
     pastSearches.append(cityButton);
 
     cityButton.click(function() {
-        alert("this is working.");
+        var newCity = cityButton.text();
+        getQuery(newCity);
+        cityDisplayEl.text(newCity + " " + CURRENTDAY);
     });
 
 }
@@ -121,8 +123,7 @@ function secondApiCall(latitude, longitude) {
 }
 
 function displayWeather(firstApiCallData) {
-    cityDisplayEl.text(cityInputEl.val() + " " + CURRENTDAY);
-
+    cityInputEl.val("");
     var temp = firstApiCallData.main.temp;
     var wind = firstApiCallData.wind.speed;
     var humidity = firstApiCallData.main.humidity;
@@ -145,8 +146,8 @@ function displayWeather(firstApiCallData) {
     secondApiCall(latitude,longitude);
 }
 
-function getQuery(event) {
-    event.preventDefault();
+function getQuery(selectedCity) {
+    event.preventDefault(); //event is crossed out but it's still needed
 
     // clearing out the forecast data so it doesn't duplicate. If you select multiple cities in one sitting.
     day1.text("");
@@ -155,13 +156,12 @@ function getQuery(event) {
     day4.text("");
     day5.text("");
 
-    var selectedCity = cityInputEl.val().trim();
     console.log(selectedCity);
 
-    if (!selectedCity) {
-        alert("Please enter the name of a city");
-        return;
-    }
+    // if (!selectedCity) {
+    //     alert("Please enter the name of a city");
+    //     return;
+    // }
 
     createButton(selectedCity);
 
@@ -185,7 +185,11 @@ function getQuery(event) {
     })
 }
 
-cityFormEl.on("submit", getQuery);
+cityFormEl.on("submit", function(){
+    var selectedCity = cityInputEl.val().trim();
+    getQuery(selectedCity);
+    cityDisplayEl.text(cityInputEl.val() + " " + CURRENTDAY);
+});
 
 
 
