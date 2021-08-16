@@ -33,10 +33,7 @@ if (history.length >= 1) {
         pastSearches.append(initButtonList);
     }
 }
-
-var initButton = $(".init-button");
-
-
+var initButton = $(".init-button"); //Just created the buttons from the localStorage and now grabbing them. They are updated at the end of the file.
 
 // grabbing the forecast days
 
@@ -52,6 +49,7 @@ function createButton(selectedCity) {
     console.log(searchHistory);
     console.log($.inArray(selectedCity,searchHistory));
     var cityButton = $("<button>");
+    var arrayLength = history.length;
 
     if ($.inArray(selectedCity,searchHistory) == -1) {
         console.log(cityButton);
@@ -109,6 +107,8 @@ function displayForecast(secondApiCallData){
         // console.log(futTemp);
         var futWind = secondApiCallData.daily[i].wind_speed;
         var futHumid = secondApiCallData.daily[i].humidity;
+        var futImage = secondApiCallData.daily[i].weather[0].main;
+        console.log(futImage);
 
         
         var futureDate = $("<li>");
@@ -129,11 +129,30 @@ function displayForecast(secondApiCallData){
         forecastHumid.text("Humidity: " + futHumid + "%");
         daySelect.append(forecastHumid);
 
-        // can add images in there as well if time permits.  
+        var weatherList = $("<li>");
+        var weatherImg = $("<img>");
+        // weatherImg.attr("height", "30");
+        // weatherImg.attr("width", "30");
+        if (futImage === "Clear") {
+            weatherImg.attr("src", "./assets/images/clear_img.png");
+        }
+        else if (futImage === "Rain" || futImage === "Drizzle") {
+            weatherImg.attr("src", "./assets/images/rain_img.png");
+        }
+        else if (futImage === "Snow") {
+            weatherImg.attr("src", "./assets/images/snow_img.png")
+        }
+        else if (futImage === "Clouds") {
+            weatherImg.attr("src", "./assets/images/clouds_img.png")
+        }
+        else if (futImage === "Thunderstorm") {
+            weatherImg.attr("src", "./assets/images/tstorm_img.png")
+        }
+        else {
+            weatherImg.attr("src", "./assets/images/else_img.png")
+        }
+        daySelect.append(weatherImg);
     }
-
-
-
 }
 
 function secondApiCall(latitude, longitude) {
