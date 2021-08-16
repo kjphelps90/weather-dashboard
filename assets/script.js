@@ -129,7 +129,6 @@ function displayForecast(secondApiCallData){
         forecastHumid.text("Humidity: " + futHumid + "%");
         daySelect.append(forecastHumid);
 
-        var weatherList = $("<li>");
         var weatherImg = $("<img>");
         // weatherImg.attr("height", "30");
         // weatherImg.attr("width", "30");
