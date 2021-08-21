@@ -49,7 +49,6 @@ function createButton(selectedCity) {
     console.log(searchHistory);
     console.log($.inArray(selectedCity,searchHistory));
     var cityButton = $("<button>");
-    var arrayLength = history.length;
 
     if ($.inArray(selectedCity,searchHistory) == -1) {
         console.log(cityButton);
@@ -70,7 +69,7 @@ function createButton(selectedCity) {
 }
 
 function displayForecast(secondApiCallData){
-    var uvData = secondApiCallData.current.uvi;
+    var uvData = Math.round(secondApiCallData.current.uvi);
     console.log(uvData);
     console.log(typeof uvData);
     uvOutput.text(uvData);
